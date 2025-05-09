@@ -22,7 +22,7 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  console.log(req.params)
+  console.log(req.params);
   const { name, email, password } = req.body;
   const user = await prisma.user.update({
     where: {
@@ -35,4 +35,14 @@ export const updateUser = async (req, res) => {
     },
   });
   return res.json({ status: 200, message: "User updated successfully!" });
+};
+
+export const deleteUser = async(req, res) => {
+  const {id} = req.params;
+  const user = await prisma.user.delete({
+    where : {
+      id: Number(id)
+    }
+  })
+  return res.json({status : 200, message : "user deleted successfully!"})
 };
